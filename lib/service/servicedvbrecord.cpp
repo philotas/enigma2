@@ -392,7 +392,12 @@ int eDVBServiceRecord::doRecord()
 				eDebugNoNewLine(")");
 			}
 			eDebugNoNewLine(", and the pcr pid is %04x", program.pcrPid);
-			if (program.pcrPid >= 0 && program.pcrPid < 0x1fff)
+
+			bool include_null_packets = eConfigManager::getConfigBoolValue("config.recording.include_null_packets");
+			int max_pid = 0x1fff;
+			if (include_null_packets) max_pid = 0x2000;
+
+			if (program.pcrPid >= 0 && program.pcrPid < max_pid)
 				pids_to_record.insert(program.pcrPid);
 			eDebug(", and the text pid is %04x", program.textPid);
 			if (program.textPid != -1)
