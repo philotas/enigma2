@@ -38,6 +38,7 @@ AC_ARG_WITH(gstversion,
 	AS_HELP_STRING([--with-gstversion],[use gstreamer version (major.minor)]),
 	[GST_MAJORMINOR=$withval],[GST_MAJORMINOR=0.10])
 
+PKG_CHECK_MODULES(GSTREAMER, gstreamer-$GST_MAJORMINOR gstreamer-pbutils-$GST_MAJORMINOR)
 PKG_CHECK_MODULES(BASE, [freetype2 fribidi gstreamer-$GST_MAJORMINOR gstreamer-pbutils-$GST_MAJORMINOR libdvbsi++ libpng libxml-2.0 sigc++-1.2 libssl libcrypto])
 PKG_CHECK_MODULES(LIBDDVD, libdreamdvd, HAVE_LIBDDVD="yes", HAVE_LIBDDVD="no")
 AM_CONDITIONAL(HAVE_LIBDDVD, test "$HAVE_LIBDDVD" = "yes")
@@ -423,6 +424,11 @@ if test "$BOXTYPE" == "7000s" -0 "$BOXTYPE" == "7100s" -0 "$BOXTYPE" == "7300s";
 	AC_DEFINE(KEY_PLAY_ACTUALLY_IS_KEY_PLAYPAUSE, 1,[define when rc sends a KEY_PLAY event for its KEY_PLAYPAUSE key])
 fi
 
+if test "$MACHINEBUILD" == "e4hd"; then
+	AC_DEFINE(KEY_POWER2_TO_KEY_WWW, 1,[define when rc sends a KEY_POWER2 event for its KEY_WWW key])
+	AC_DEFINE(KEY_DIRECTORY_TO_KEY_FILE, 1,[define when rc sends a KEY_DIRECTORY event for its KEY_FILE key])
+fi
+
 if test "$BOXTYPE" == "odinm9"; then
 	AC_DEFINE(KEY_PLAY_ACTUALLY_IS_KEY_PLAYPAUSE, 1,[define when rc sends a KEY_PLAY event for its KEY_PLAYPAUSE key])
 	AC_DEFINE(FORCE_NO_BLENDING_ACCELERATION, 1,[define when the framebuffer acceleration does not have alphablending support, though the autodetection might indicate that it does])
@@ -472,7 +478,7 @@ if test "$BOXTYPE" == "inihde" -o "$BOXTYPE" == "inihdx" -o "$BOXTYPE" == "inihd
 	AC_DEFINE(KEY_LIST_TO_KEY_PVR, 1,[define when rc sends a KEY_LIST event for its KEY_PVR key])
 fi
 
-if test "$MACHINEBUILD" == "bwidowx" -o "$MACHINEBUILD" == "bwidowx2" -o "$MACHINEBUILD" == "fegasusx5"; then
+if test "$MACHINEBUILD" == "bwidowx" -o "$MACHINEBUILD" == "bwidowx2" -o "$MACHINEBUILD" == "fegasusx5t" -o "$MACHINEBUILD" == "fegasusx5s" -o "$MACHINEBUILD" == "fegasusx3"; then
 	AC_DEFINE(FORCE_NO_BLENDING_ACCELERATION, 1,[define when the framebuffer acceleration does not have alphablending support, though the autodetection might indicate that it does])
 	AC_DEFINE(KEY_ZOOM_TO_KEY_SCREEN, 1,[define when rc sends a KEY_ZOOM event for its KEY_SCREEN key])
 	AC_DEFINE(KEY_LAST_TO_KEY_PVR, 1,[define when rc sends a KEY_LAST event for its KEY_PVR key])
@@ -590,7 +596,6 @@ lib/python/Plugins/Extensions/MediaScanner/Makefile
 lib/python/Plugins/Extensions/MediaScanner/meta/Makefile
 lib/python/Plugins/Extensions/PicturePlayer/Makefile
 lib/python/Plugins/Extensions/PicturePlayer/meta/Makefile
-lib/python/Plugins/Extensions/PicturePlayer/data/Makefile
 lib/python/Plugins/Extensions/SocketMMI/Makefile
 lib/python/Plugins/Extensions/SocketMMI/meta/Makefile
 lib/python/Plugins/Extensions/SocketMMI/src/Makefile
@@ -601,6 +606,8 @@ lib/python/Plugins/Extensions/Infopanel/meta/Makefile
 lib/python/Plugins/Extensions/Infopanel/icons/Makefile
 lib/python/Plugins/Extensions/Volume_adjust/Makefile
 lib/python/Plugins/Extensions/Volume_adjust/nl/Makefile
+lib/python/Plugins/SystemPlugins/Makefile
+lib/python/Plugins/SystemPlugins/AnimationSetup/Makefile
 lib/python/Plugins/SystemPlugins/CableScan/Makefile
 lib/python/Plugins/SystemPlugins/CommonInterfaceAssignment/Makefile
 lib/python/Plugins/SystemPlugins/CommonInterfaceAssignment/meta/Makefile
@@ -615,7 +622,6 @@ lib/python/Plugins/SystemPlugins/HdmiCEC/Makefile
 lib/python/Plugins/SystemPlugins/Hotplug/Makefile
 lib/python/Plugins/SystemPlugins/Hotplug/meta/Makefile
 lib/python/Plugins/SystemPlugins/LCNScanner/Makefile
-lib/python/Plugins/SystemPlugins/Makefile
 lib/python/Plugins/SystemPlugins/NetworkWizard/Makefile
 lib/python/Plugins/SystemPlugins/NetworkWizard/meta/Makefile
 lib/python/Plugins/SystemPlugins/NFIFlash/Makefile
@@ -637,7 +643,6 @@ lib/python/Plugins/SystemPlugins/WirelessLan/Makefile
 lib/python/Plugins/SystemPlugins/WirelessLan/meta/Makefile
 lib/python/Plugins/SystemPlugins/SkinSelector/Makefile
 lib/python/Plugins/SystemPlugins/SkinSelector/meta/Makefile
-lib/python/Plugins/SystemPlugins/AnimationSetup/Makefile
 lib/python/Tools/Makefile
 po/Makefile
 main/Makefile
