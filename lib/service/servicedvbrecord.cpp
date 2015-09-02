@@ -324,6 +324,14 @@ int eDVBServiceRecord::doRecord()
 
 			pids_to_record.insert(0); // PAT
 
+			bool include_all_pids = eConfigManager::getConfigBoolValue("config.recording.include_all_pids");
+
+			if (include_all_pids) {
+				for (int i = 1; i < 0x2000; ++i){
+						pids_to_record.insert(i)
+				}
+			}
+
 			if (program.pmtPid != -1)
 				pids_to_record.insert(program.pmtPid); // PMT
 
