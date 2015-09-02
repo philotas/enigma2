@@ -327,7 +327,7 @@ int eDVBServiceRecord::doRecord()
 			bool include_all_pids = eConfigManager::getConfigBoolValue("config.recording.include_all_pids");
 
 			if (include_all_pids) {
-				for (int i = 1; i < 0x2000; ++i){
+				for (int i = 1; i < 0x2000; i++){
 						pids_to_record.insert(i);
 				}
 			}
