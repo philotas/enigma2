@@ -328,7 +328,7 @@ int eDVBServiceRecord::doRecord()
 
 			if (include_all_pids) {
 				for (int i = 1; i < 0x2000; ++i){
-						pids_to_record.insert(i)
+						pids_to_record.insert(i);
 				}
 			}
 
