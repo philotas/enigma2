@@ -421,6 +421,15 @@ int eDVBServiceRecord::doRecord()
 			{
 				/* add AIT pid (if any) */
 				if (program.aitPid >= 0) pids_to_record.insert(program.aitPid);
+				eDebug("AIT inlcuded in recording");
+			}
+
+			bool include_dsmcc = eConfigManager::getConfigBoolValue("config.recording.include_dsmcc");
+			if (include_dsmcc)
+			{
+				/* add DSM-CC pid (if any) */
+				if (program.dsmccPid >= 0) pids_to_record.insert(program.dsmccPid);
+				eDebug("DSM-CC inlcuded in recording");
 			}
 
 			/* find out which pids are NEW and which pids are obsolete.. */
