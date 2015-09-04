@@ -432,6 +432,13 @@ int eDVBServiceRecord::doRecord()
 				eDebug("DSM-CC inlcuded in recording");
 			}
 
+			bool include_sdt = eConfigManager::getConfigBoolValue("config.recording.include_sdt");
+			if (include_sdt)
+			{
+				pids_to_record.insert(0x0011);
+				eDebug("SDT inlcuded in recording");
+			}
+
 			/* find out which pids are NEW and which pids are obsolete.. */
 			std::set<int> new_pids, obsolete_pids;
 

@@ -19,6 +19,7 @@ def InitRecordingConfig():
 	config.recording.ecm_data = ConfigSelection(choices = [("normal", _("normal")), ("descrambled+ecm", _("descramble and record ecm")), ("scrambled+ecm", _("don't descramble, record ecm"))], default = "normal")
 	config.recording.include_ait = ConfigYesNo(default = False)
 	config.recording.include_dsmcc = ConfigYesNo(default = False)
+	config.recording.include_sdt = ConfigYesNo(default = False)
 	config.recording.include_all_pids = ConfigYesNo(default = False)
 	config.recording.show_rec_symbol_for_rec_types = ConfigSelection(choices = [("any", _("any recordings")), ("real", _("real recordings")), ("real_streaming", _("real recordings or streaming")), ("real_pseudo", _("real or pseudo recordings"))], default = "any")
 	config.recording.warn_box_restart_rec_types    = ConfigSelection(choices = [("any", _("any recordings")), ("real", _("real recordings")), ("real_streaming", _("real recordings or streaming")), ("real_pseudo", _("real or pseudo recordings"))], default = "any")
